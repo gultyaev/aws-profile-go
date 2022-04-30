@@ -1,0 +1,314 @@
+openapi: 3.0.3
+info:
+  title: Go profile API
+  version: 0.0.1
+
+paths:
+  /image:
+    post:
+      tags:
+        - image
+      summary: Returns a URL to upload image to
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - fileName
+              properties:
+                fileName:
+                  type: string
+                  example: my-photo.png
+      responses:
+        '201':
+          description: Signed URL created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: 'http://aws.com/ima'
+
+
+  /profile:
+    get:
+      tags:
+        - profile
+      summary: Returns profile info
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+
+    post:
+      tags:
+        - profile
+      summary: Saves profile info
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+      responses:
+        '201':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+
+
+  /skills:
+    get:
+      tags:
+        - skills
+      summary: Returns skills
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Skill'
+    post:
+      tags:
+        - skills
+      summary: Saves skills
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skill'
+      responses:
+        '201':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Skill'
+
+
+  /languages:
+    get:
+      tags:
+        - languages
+      summary: Returns languages
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: 'English B2+'
+    post:
+      tags:
+        - languages
+      summary: Saves languages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                example: 'English B2+'
+      responses:
+        '201':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: 'English B2+'
+
+
+  /educations:
+    get:
+      tags:
+        - educations
+      summary: Returns education
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: 'Master degree'
+    post:
+      tags:
+        - educations
+      summary: Saves education
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                example: 'Master degree'
+      responses:
+        '201':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: 'Master degree'
+
+  /projects:
+    get:
+      tags:
+        - projects
+      summary: Returns projects
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+    post:
+      tags:
+        - projects
+      summary: Saves projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '201':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+    put:
+      tags:
+        - projects
+      summary: Updates projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+
+
+components:
+  schemas:
+
+
+    Profile:
+      type: object
+      required:
+        - name
+        - location
+        - contacts
+      properties:
+        name:
+          type: string
+          example: 'John Doe'
+        location:
+          type: string
+          example: 'Some ave'
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+        profileImg:
+          type: string
+          example: 'http://path/to/image.png'
+          readOnly: true
+
+
+    Contact:
+      type: object
+      required:
+        - type
+        - value
+      properties:
+        type:
+          type: string
+          example: phone
+        value:
+          type: string
+          example: '+000000000'
+
+
+    Skill:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          example: 'JavaScript'
+
+
+    Project:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          example: 'Board'
+        description:
+          type: string
+          example: 'In this project I have ...'
+        imageUrl:
+          type: string
+          example: 'http://link/to/image.png'
+          readOnly: true
+        image:
+          type: string
+          description: 'Image identifier returned by upload image endpoint'
+          writeOnly: true
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                example: 'path/to/github'
+              type:
+                type: string
+                description: 'Can be use to specify type of a link to display it in different places'
+                example: 'github'
