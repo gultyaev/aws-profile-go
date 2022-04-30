@@ -14,11 +14,22 @@ The bins are included into the repo to ease the deployment process by mitigating
 
 ## Deploying the project
 
-```shell
-sls deploy
-```
+For deployment [Serverless framework](https://www.serverless.com/) is used. It will create all required resources
+on the AWS. All resources are listed in the [serverless.yml](serverless.yml).
 
-## Removing project from deployments
+1. Clone the repo
+   ```shell
+   git clone https://github.com/gultyaev/aws-profile-go.git
+   ```
+2. Authenticate in AWS using [AWS CLI](https://aws.amazon.com/cli/)
+3. Run the deployment command
+   ```shell
+   sls deploy
+   ```
+
+## Removing deployed resources from AWS
+
+The command below will remove all resources created on AWS.
 
 ```shell
 sls remove
