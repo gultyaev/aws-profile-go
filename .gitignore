@@ -17,6 +17,8 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-# IDE
+# npm
+node_modules
 
+# IDE
 .idea

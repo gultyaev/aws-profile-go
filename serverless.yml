@@ -20,9 +20,32 @@ service: aws-profile-go
 # Check out our docs for more details
 frameworkVersion: '3'
 
+custom:
+  collectionsTableName: 'collections-table'
+  usersTableName: 'users-table'
+
 provider:
   name: aws
   runtime: go1.x
+  region: eu-west-1
+  environment:
+    COLLECTION_TABLE: ${self:custom.collectionsTableName}
+    USERS_TABLE: ${self:custom.usersTableName}
+    SALT: 0da7092f262da23f22e377d4d7db1cd7cf64bafee0c40fc9
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [ CollectionsTable, Arn ]
+            - Fn::GetAtt: [ UsersTable, Arn ]
 
 # you can overwrite defaults here
 #  stage: dev
@@ -55,19 +78,56 @@ package:
     - '!./**'
     - ./bin/**
 
+plugins:
+  - serverless-offline
+
 functions:
-  hello:
-    handler: bin/hello
+  get-skills:
+    handler: bin/get-skills
     events:
       - httpApi:
-          path: /hello
+          path: /skills
           method: get
-  world:
-    handler: bin/world
+  save-skills:
+    handler: bin/save-skills
     events:
       - httpApi:
-          path: /world
-          method: get
+          path: /skills
+          method: post
+
+resources:
+  Resources:
+    # A special table which can contain any entities that don't need to have a separate collection
+    #
+    # - profile
+    # - get-skills
+    # - languages
+    # - educations
+    # - projects
+    CollectionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: Collection
+            AttributeType: S
+        KeySchema:
+          - AttributeName: Collection
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.collectionsTableName}
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: Username
+            AttributeType: S
+        KeySchema:
+          - AttributeName: Username
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.usersTableName}
+
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

@@ -1,0 +1,25 @@
+{
+  "name": "aws-profile-go",
+  "version": "1.0.0",
+  "description": "This is a pet project as part of learning Go lang and helping devs learning FE use the API for their portfolio.\r The API is deployed to the AWS using Serverless framework it will create:",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gultyaev/aws-profile-go.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gultyaev/aws-profile-go/issues"
+  },
+  "homepage": "https://github.com/gultyaev/aws-profile-go#readme",
+  "devDependencies": {
+    "serverless-offline": "^8.7.0"
+  }
+}

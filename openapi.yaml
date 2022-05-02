@@ -69,8 +69,8 @@ paths:
   /skills:
     get:
       tags:
-        - skills
-      summary: Returns skills
+        - get-skills
+      summary: Returns get-skills
       responses:
         '200':
           description: ""
@@ -82,8 +82,8 @@ paths:
                   $ref: '#/components/schemas/Skill'
     post:
       tags:
-        - skills
-      summary: Saves skills
+        - get-skills
+      summary: Saves get-skills
       requestBody:
         required: true
         content:
