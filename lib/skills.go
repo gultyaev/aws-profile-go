@@ -1,6 +1,10 @@
 package lib
 
-type Skills []string
+type Skill struct {
+	Title string `json:"title"`
+}
+
+type Skills []Skill
 
 type SkillsCollection struct {
 	Collection string
