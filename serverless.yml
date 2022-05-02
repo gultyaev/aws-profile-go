@@ -13,6 +13,9 @@ provider:
     COLLECTION_TABLE: ${self:custom.collectionsTableName}
     USERS_TABLE: ${self:custom.usersTableName}
     SALT: 0da7092f262da23f22e377d4d7db1cd7cf64bafee0c40fc9
+  apiGateway:
+    minimumCompressionSize: 1024
+    shouldStartNameWithService: true
   iam:
     role:
       statements:
@@ -43,12 +46,14 @@ functions:
       - http:
           path: /skills
           method: get
+          cors: true
   save-skills:
     handler: bin/save-skills
     events:
       - http:
           path: /skills
           method: post
+          cors: true
           request:
             schemas:
               application/json: ${file(save-skills/save-skills.validation.json)}
