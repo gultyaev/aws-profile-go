@@ -5,8 +5,3 @@ type Skill struct {
 }
 
 type Skills []Skill
-
-type SkillsCollection struct {
-	Collection string
-	Value      Skills
-}

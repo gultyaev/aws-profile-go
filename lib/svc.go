@@ -7,12 +7,18 @@ import (
 	"log"
 )
 
-func GetSvc() (svc *dynamodb.DynamoDB) {
+var savedSvc *dynamodb.DynamoDB
+
+func GetSvc() *dynamodb.DynamoDB {
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
-	svc = dynamodb.New(sess, aws.NewConfig().WithLogLevel(aws.LogDebugWithHTTPBody))
+
+	if savedSvc == nil {
+		savedSvc = dynamodb.New(sess, aws.NewConfig().WithLogLevel(aws.LogDebugWithHTTPBody))
+	}
 
 	log.Printf("Created session")
-	return
+
+	return savedSvc
 }
