@@ -40,6 +40,7 @@ plugins:
   - serverless-offline
 
 functions:
+  # Skills functions
   get-skills:
     handler: bin/get-skills
     events:
@@ -56,7 +57,25 @@ functions:
           cors: true
           request:
             schemas:
-              application/json: ${file(save-skills/save-skills.validation.json)}
+              application/json: ${file(validation-schemas/save-skills.validation.json)}
+  # Profile functions
+  get-profile:
+    handler: bin/get-profile
+    events:
+      - http:
+          path: /profile
+          method: get
+          cors: true
+  save-profile:
+    handler: bin/save-profile
+    events:
+      - http:
+          path: /profile
+          method: post
+          cors: true
+          request:
+            schemas:
+              application/json: ${file(validation-schemas/save-profile.validation.json)}
 
 resources:
   Resources:

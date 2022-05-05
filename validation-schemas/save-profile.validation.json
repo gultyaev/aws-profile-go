@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "SaveProfileRequestModel",
+  "type": "object",
+  "required": [
+    "contacts",
+    "location",
+    "name",
+    "profileImg"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 3
+    },
+    "location": {
+      "type": "string",
+      "minLength": 3
+    },
+    "contacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "value"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      }
+    },
+    "profileImg": {
+      "type": "string",
+      "minLength": 3
+    }
+  }
+}
