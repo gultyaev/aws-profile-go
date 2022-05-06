@@ -19,7 +19,8 @@
     "url": "https://github.com/gultyaev/aws-profile-go/issues"
   },
   "homepage": "https://github.com/gultyaev/aws-profile-go#readme",
-  "devDependencies": {
-    "serverless-offline": "^8.7.0"
+  "dependencies": {
+    "serverless-offline": "^8.7.0",
+    "serverless-resources-env": "^0.3.1"
   }
 }

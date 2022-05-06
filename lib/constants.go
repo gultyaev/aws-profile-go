@@ -1,4 +1,6 @@
 package lib
 
-var SkillsCollectionName = "skills"
-var ProfileCollectionName = "profile"
+const SkillsCollectionName = "skills"
+const ProfileCollectionName = "profile"
+
+const AwsS3Domain = ".s3.amazonaws.com"

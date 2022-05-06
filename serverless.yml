@@ -4,6 +4,9 @@ frameworkVersion: '3'
 custom:
   collectionsTableName: 'collections-table'
   usersTableName: 'users-table'
+  remover:
+    buckets:
+      - ImagesBucket
 
 provider:
   name: aws
@@ -30,6 +33,12 @@ provider:
           Resource:
             - Fn::GetAtt: [ CollectionsTable, Arn ]
             - Fn::GetAtt: [ UsersTable, Arn ]
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+          Resource:
+            - Fn::GetAtt: [ ImagesBucket, Arn ]
+            - Fn::Join: [ "", [ Fn::GetAtt: [ ImagesBucket, Arn ], "*" ] ]
 
 package:
   patterns:
@@ -38,6 +47,7 @@ package:
 
 plugins:
   - serverless-offline
+  - serverless-resources-env
 
 functions:
   # Skills functions
@@ -76,6 +86,24 @@ functions:
           request:
             schemas:
               application/json: ${file(validation-schemas/save-profile.validation.json)}
+  get-presigned-url:
+    handler: bin/get-presigned-url
+    dependsOn:
+      - ImagesBucket
+    custom:
+      env-resources:
+        - ImagesBucket
+    events:
+      - http:
+          path: /image
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                image: true
+#            schemas:
+#              application/json: ${file(validation-schemas/save-profile.validation.json)}
 
 resources:
   Resources:
@@ -108,3 +136,18 @@ resources:
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:custom.usersTableName}
+    ImagesBucket:
+      Type: AWS::S3::Bucket
+    PublicImagesBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref ImagesBucket
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - 's3:GetObject'
+              Resource:
+                - !Join [ '/', [ !GetAtt [ ImagesBucket, Arn ], '*' ] ]
+              Principal: '*'

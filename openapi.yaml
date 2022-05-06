@@ -3,35 +3,40 @@ info:
   title: Go profile API
   version: 0.0.1
 
+servers:
+  - url: https://q37jrwzos8.execute-api.eu-west-1.amazonaws.com/dev/
+
 paths:
   /image:
-    post:
+    get:
       tags:
         - image
       summary: Returns a URL to upload image to
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - fileName
-              properties:
-                fileName:
-                  type: string
-                  example: my-photo.png
+      description: Pass the "image" query param with the name of the image you will upload.
+        It will return two URLs. One is used to upload the image using PUT request,
+        and the second one is to use to access the image from the browser.
+      parameters:
+        - in: query
+          name: image
+          required: true
+          schema:
+            type: string
+            example: Hello%20World.png
       responses:
-        '201':
+        '200':
           description: Signed URL created
           content:
             application/json:
               schema:
                 type: object
                 properties:
+                  uploadUrl:
+                    type: string
+                    example: http://aws.com/ima
+                    description: Destination path which is used to upload the image to
                   url:
                     type: string
-                    example: 'http://aws.com/ima'
+                    description: URL by which the uploaded image then can be accessed to download
 
 
   /profile:

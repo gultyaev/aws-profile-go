@@ -51,7 +51,7 @@ func PutCollection(table string, collection DynamoMap) {
 		Item:      collection,
 	}
 
-	svc := GetSvc()
+	svc := GetDynamoDBSession()
 	_, err := svc.PutItem(input)
 
 	if err != nil {
@@ -90,7 +90,7 @@ func ResponseSuccess201() (Response, error) {
 }
 
 func GetCollection[T any](collection []DbCollection[T], collectionName string, value T) (Response, error) {
-	svc := GetSvc()
+	svc := GetDynamoDBSession()
 
 	input := &dynamodb.ScanInput{
 		TableName:        aws.String(DbCollectionsTable),
@@ -140,4 +140,8 @@ func GetCollection[T any](collection []DbCollection[T], collectionName string, v
 			"Content-Type": "application/json",
 		},
 	}, nil
+}
+
+func GetBucketUrl() string {
+	return "https://" + ImagesBucket + AwsS3Domain
 }
