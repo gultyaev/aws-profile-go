@@ -29,8 +29,8 @@ on the AWS. All resources are listed in the [serverless.yml](serverless.yml).
 
 ## Removing deployed resources from AWS
 
-The command below will remove all resources created on AWS.
-
-```shell
-sls remove
-```
+1. Make S3 bucket which name starts with `ImagesBucket` empty, otherwise the stack won't be removed.
+2. Execute the command below. It will remove all resources created on AWS.
+   ```shell
+   sls remove
+   ```
