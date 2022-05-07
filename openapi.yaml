@@ -119,6 +119,7 @@ paths:
                 items:
                   type: string
                   example: 'English B2+'
+                  minLength: 2
     post:
       tags:
         - languages
@@ -132,6 +133,7 @@ paths:
               items:
                 type: string
                 example: 'English B2+'
+                minLength: 2
       responses:
         '201':
           description: ""
@@ -156,6 +158,7 @@ paths:
                 items:
                   type: string
                   example: 'Master degree'
+                  minLength: 2
     post:
       tags:
         - educations
@@ -169,6 +172,7 @@ paths:
               items:
                 type: string
                 example: 'Master degree'
+                minLength: 2
       responses:
         '201':
           description: ""
@@ -276,17 +280,15 @@ components:
         title:
           type: string
           example: 'Board'
+          minLength: 2
         description:
           type: string
           example: 'In this project I have ...'
+          minLength: 2
         imageUrl:
           type: string
           example: 'http://link/to/image.png'
-          readOnly: true
-        image:
-          type: string
-          description: 'Image identifier returned by upload image endpoint'
-          writeOnly: true
+          minLength: 2
         links:
           type: array
           items:
@@ -295,10 +297,12 @@ components:
               url:
                 type: string
                 example: 'path/to/github'
+                minLength: 2
               type:
                 type: string
                 description: 'Can be use to specify type of a link to display it in different places'
                 example: 'github'
+                minLength: 2
 
     ItemCreated:
       type: object

@@ -68,6 +68,7 @@ functions:
           request:
             schemas:
               application/json: ${file(validation-schemas/save-skills.validation.json)}
+
   # Profile functions
   get-profile:
     handler: bin/get-profile
@@ -86,6 +87,65 @@ functions:
           request:
             schemas:
               application/json: ${file(validation-schemas/save-profile.validation.json)}
+
+  # Languages functions
+  get-languages:
+    handler: bin/get-languages
+    events:
+      - http:
+          path: /languages
+          method: get
+          cors: true
+  save-languages:
+    handler: bin/save-languages
+    events:
+      - http:
+          path: /languages
+          method: post
+          cors: true
+          request:
+            schemas:
+              application/json: ${file(validation-schemas/save-strings-collection.validation.json)}
+
+  # Educations functions
+  get-educations:
+    handler: bin/get-educations
+    events:
+      - http:
+          path: /educations
+          method: get
+          cors: true
+  save-educations:
+    handler: bin/save-educations
+    events:
+      - http:
+          path: /educations
+          method: post
+          cors: true
+          request:
+            schemas:
+              application/json: ${file(validation-schemas/save-strings-collection.validation.json)}
+
+  # Projects functions
+  get-projects:
+    handler: bin/get-projects
+    events:
+      - http:
+          path: /projects
+          method: get
+          cors: true
+  save-projects:
+    handler: bin/save-projects
+    events:
+      - http:
+          path: /projects
+          method: post
+          cors: true
+          request:
+            schemas:
+              application/json: ${file(validation-schemas/save-projects.validation.json)}
+
+  # Presigned url
   get-presigned-url:
     handler: bin/get-presigned-url
     dependsOn:
@@ -102,8 +162,6 @@ functions:
             parameters:
               querystrings:
                 image: true
-#            schemas:
-#              application/json: ${file(validation-schemas/save-profile.validation.json)}
 
 resources:
   Resources:
