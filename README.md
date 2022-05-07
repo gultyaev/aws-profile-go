@@ -7,10 +7,15 @@ The API is deployed to the AWS using Serverless framework it will create:
 - Lambda functions exposed under single API gateway
 - DynamoDB database to store the data
 - S3 bucket to store the deployed resources
+- Access policies for the resources to work properly
 
 This should fall into the AWS Free Tier limitations.
 
 The bins are included into the repo to ease the deployment process by mitigating the need of installing extra toolings.
+
+## API definition
+
+Look at [the OpenAPI docs](openapi.yaml) to discover available endpoints.
 
 ## Deploying the project
 
