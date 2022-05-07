@@ -85,7 +85,9 @@ func ResponseSuccess201() (Response, error) {
 		IsBase64Encoded: false,
 		Body:            buf.String(),
 		Headers: map[string]string{
-			"Content-Type": "application/json",
+			"Content-Type":                 "application/json",
+			"Access-Control-Allow-Origin":  "*",
+			"Access-Control-Allow-Headers": "*",
 		},
 	}, nil
 }
@@ -138,7 +140,9 @@ func GetCollection[T any](collection []models.DbCollection[T], collectionName st
 		IsBase64Encoded: false,
 		Body:            string(res),
 		Headers: map[string]string{
-			"Content-Type": "application/json",
+			"Content-Type":                 "application/json",
+			"Access-Control-Allow-Origin":  "*",
+			"Access-Control-Allow-Headers": "*",
 		},
 	}, nil
 }
