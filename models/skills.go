@@ -1,4 +1,4 @@
-package lib
+package models
 
 type Skill struct {
 	Title string `json:"title"`

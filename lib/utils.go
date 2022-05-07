@@ -8,6 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"log"
+	"profile/models"
 )
 
 type Request events.APIGatewayProxyRequest
@@ -26,8 +27,8 @@ func UnmarshalRequestOrFail(req *Request, tgt any) {
 	log.Printf("Unarshalled to %v", &tgt)
 }
 
-func ToCollection[T any](collectionName string, value T) DbCollection[T] {
-	return DbCollection[T]{
+func ToCollection[T any](collectionName string, value T) models.DbCollection[T] {
+	return models.DbCollection[T]{
 		Collection: collectionName,
 		Value:      value,
 	}
@@ -89,7 +90,7 @@ func ResponseSuccess201() (Response, error) {
 	}, nil
 }
 
-func GetCollection[T any](collection []DbCollection[T], collectionName string, value T) (Response, error) {
+func GetCollection[T any](collection []models.DbCollection[T], collectionName string, value T) (Response, error) {
 	svc := GetDynamoDBSession()
 
 	input := &dynamodb.ScanInput{

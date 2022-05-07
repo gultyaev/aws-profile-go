@@ -1,4 +1,4 @@
-package lib
+package models
 
 type DbCollection[T interface{}] struct {
 	Collection string

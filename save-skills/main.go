@@ -3,12 +3,13 @@ package main
 import (
 	"context"
 	"github.com/aws/aws-lambda-go/lambda"
+	"profile/models"
 
 	"profile/lib"
 )
 
 func Handler(_ context.Context, request lib.Request) (lib.Response, error) {
-	var item *lib.Skills
+	var item *models.Skills
 
 	lib.PutReqBodyToCollection(lib.SkillsCollectionName, &item, &request)
 

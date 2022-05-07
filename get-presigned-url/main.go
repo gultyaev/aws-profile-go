@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/url"
 	"profile/lib"
+	"profile/models"
 	"time"
 )
 
@@ -33,7 +34,7 @@ func Handler(_ context.Context, request lib.Request) (lib.Response, error) {
 		log.Panicf("Error during Presign %v", err)
 	}
 
-	res, _ := json.Marshal(lib.PresignImage{
+	res, _ := json.Marshal(models.PresignImage{
 		Url:       lib.GetBucketUrl() + "/" + imageName,
 		UploadUrl: imgUrl,
 	})

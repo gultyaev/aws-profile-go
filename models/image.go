@@ -1,4 +1,4 @@
-package lib
+package models
 
 type PresignImage struct {
 	Url       string `json:"url"`
