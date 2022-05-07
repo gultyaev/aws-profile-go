@@ -68,7 +68,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Profile'
+                $ref: '#/components/schemas/ItemCreated'
 
 
   /skills:
@@ -101,9 +101,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Skill'
+                $ref: '#/components/schemas/ItemCreated'
 
 
   /languages:
@@ -140,10 +138,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: string
-                  example: 'English B2+'
+                $ref: '#/components/schemas/ItemCreated'
 
 
   /educations:
@@ -180,10 +175,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: string
-                  example: 'Master degree'
+                $ref: '#/components/schemas/ItemCreated'
 
   /projects:
     get:
@@ -208,32 +200,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Project'
+              type: array
+              items:
+                $ref: '#/components/schemas/Project'
       responses:
         '201':
           description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Project'
-    put:
-      tags:
-        - projects
-      summary: Updates projects
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Project'
-      responses:
-        '200':
-          description: ""
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Project'
-
+                $ref: '#/components/schemas/ItemCreated'
 
 components:
   schemas:
@@ -248,9 +224,11 @@ components:
       properties:
         name:
           type: string
+          minLength: 3
           example: 'John Doe'
         location:
           type: string
+          minLength: 3
           example: 'Some ave'
         contacts:
           type: array
@@ -259,6 +237,7 @@ components:
         profileImg:
           type: string
           example: 'http://path/to/image.png'
+          minLength: 3
           readOnly: true
 
 
@@ -270,9 +249,11 @@ components:
       properties:
         type:
           type: string
+          minLength: 1
           example: phone
         value:
           type: string
+          minLength: 3
           example: '+000000000'
 
 
@@ -283,6 +264,7 @@ components:
       properties:
         title:
           type: string
+          minLength: 2
           example: 'JavaScript'
 
 
@@ -317,3 +299,10 @@ components:
                 type: string
                 description: 'Can be use to specify type of a link to display it in different places'
                 example: 'github'
+
+    ItemCreated:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Created
