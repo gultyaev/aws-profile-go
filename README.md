@@ -27,9 +27,13 @@ on the AWS. All resources are listed in the [serverless.yml](serverless.yml).
    git clone https://github.com/gultyaev/aws-profile-go.git
    ```
 2. Authenticate in AWS using [AWS CLI](https://aws.amazon.com/cli/)
-3. Run the deployment command
+3. Install npm packages
    ```shell
-   sls deploy
+   npm i
+   ```
+4. Run the deployment command
+   ```shell
+   npm run deploy
    ```
 
 ## Removing deployed resources from AWS
