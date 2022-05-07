@@ -31,7 +31,10 @@ on the AWS. All resources are listed in the [serverless.yml](serverless.yml).
    ```shell
    npm i
    ```
-4. Run the deployment command
+4. Update `serverless.yml` values on lines 19 and 20 (after the semicolons).
+   Those are the username & password you will be using to authenticate data changing requests.
+   Don't commit them or expose in any way to the public, otherwise other people will be able to authenticate.
+6. Run the deployment command
    ```shell
    npm run deploy
    ```

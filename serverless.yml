@@ -16,6 +16,8 @@ provider:
     COLLECTION_TABLE: ${self:custom.collectionsTableName}
     USERS_TABLE: ${self:custom.usersTableName}
     SALT: 0da7092f262da23f22e377d4d7db1cd7cf64bafee0c40fc9
+    USERNAME: TEST
+    PASSWORD: PASSWORD
   apiGateway:
     minimumCompressionSize: 1024
     shouldStartNameWithService: true
@@ -65,6 +67,7 @@ functions:
           path: /skills
           method: post
           cors: true
+          authorizer: authorizer
           request:
             schemas:
               application/json: ${file(validation-schemas/save-skills.validation.json)}
@@ -84,6 +87,7 @@ functions:
           path: /profile
           method: post
           cors: true
+          authorizer: authorizer
           request:
             schemas:
               application/json: ${file(validation-schemas/save-profile.validation.json)}
@@ -102,6 +106,7 @@ functions:
       - http:
           path: /languages
           method: post
+          authorizer: authorizer
           cors: true
           request:
             schemas:
@@ -122,6 +127,7 @@ functions:
           path: /educations
           method: post
           cors: true
+          authorizer: authorizer
           request:
             schemas:
               application/json: ${file(validation-schemas/save-strings-collection.validation.json)}
@@ -141,6 +147,7 @@ functions:
           path: /projects
           method: post
           cors: true
+          authorizer: authorizer
           request:
             schemas:
               application/json: ${file(validation-schemas/save-projects.validation.json)}
@@ -158,10 +165,18 @@ functions:
           path: /image
           method: get
           cors: true
+          authorizer: authorizer
+          response:
+            headers:
+              Access-Control-Allow-Origin: "*"
           request:
             parameters:
               querystrings:
                 image: true
+
+  # Authorizer
+  authorizer:
+    handler: bin/authorizer
 
 resources:
   Resources:
@@ -209,3 +224,23 @@ resources:
               Resource:
                 - !Join [ '/', [ !GetAtt [ ImagesBucket, Arn ], '*' ] ]
               Principal: '*'
+
+    Unauthorized:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          "gatewayresponse.header.Access-Control-Allow-Origin": "'*'"
+          "gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
+        ResponseType: "DEFAULT_4XX"
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+
+    ServerError:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          "gatewayresponse.header.Access-Control-Allow-Origin": "'*'"
+          "gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
+        ResponseType: "DEFAULT_5XX"
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
