@@ -54,7 +54,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Profile'
+                $ref: '/validation-schemas/save-profile.validation.json'
 
     post:
       security:
@@ -67,7 +67,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Profile'
+              $ref: '/validation-schemas/save-profile.validation.json'
       responses:
         '201':
           description: ""
@@ -90,9 +90,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Skill'
+                $ref: '/validation-schemas/save-skills.validation.json'
     post:
       security:
         - basic: [ ]
@@ -104,7 +102,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Skill'
+              $ref: '/validation-schemas/save-skills.validation.json'
       responses:
         '201':
           description: ""
@@ -212,9 +210,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Project'
+                $ref: '/validation-schemas/save-projects.validation.json'
     post:
       security:
         - basic: [ ]
@@ -226,9 +222,7 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Project'
+              $ref: '/validation-schemas/save-projects.validation.json'
       responses:
         '201':
           description: ""
@@ -241,91 +235,6 @@ paths:
 
 components:
   schemas:
-
-
-    Profile:
-      type: object
-      required:
-        - name
-        - location
-        - contacts
-      properties:
-        name:
-          type: string
-          minLength: 3
-          example: 'John Doe'
-        location:
-          type: string
-          minLength: 3
-          example: 'Some ave'
-        contacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Contact'
-        profileImg:
-          type: string
-          example: 'http://path/to/image.png'
-          minLength: 3
-
-
-    Contact:
-      type: object
-      required:
-        - type
-        - value
-      properties:
-        type:
-          type: string
-          minLength: 1
-          example: phone
-        value:
-          type: string
-          minLength: 3
-          example: '+000000000'
-
-
-    Skill:
-      type: object
-      required:
-        - title
-      properties:
-        title:
-          type: string
-          minLength: 2
-          example: 'JavaScript'
-
-
-    Project:
-      type: object
-      required:
-        - title
-      properties:
-        title:
-          type: string
-          example: 'Board'
-          minLength: 2
-        description:
-          type: string
-          example: 'In this project I have ...'
-          minLength: 2
-        imageUrl:
-          type: string
-          example: 'http://link/to/image.png'
-          minLength: 2
-        links:
-          type: array
-          items:
-            type: object
-            properties:
-              url:
-                type: string
-                example: 'path/to/github'
-                minLength: 2
-              type:
-                type: string
-                description: 'Can be use to specify type of a link to display it in different places'
-                example: 'github'
-                minLength: 2
 
     ItemCreated:
       type: object
