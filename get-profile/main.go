@@ -12,7 +12,7 @@ func Handler(_ context.Context) (lib.Response, error) {
 	var skills []models.DbCollection[models.Profile]
 	var val = models.Profile{}
 
-	return lib.GetCollection(skills, lib.SkillsCollectionName, val)
+	return lib.GetCollection(skills, lib.ProfileCollectionName, val)
 }
 
 func main() {
