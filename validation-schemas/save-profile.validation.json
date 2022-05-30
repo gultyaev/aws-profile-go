@@ -5,8 +5,7 @@
   "required": [
     "contacts",
     "location",
-    "name",
-    "profileImg"
+    "name"
   ],
   "properties": {
     "name": {

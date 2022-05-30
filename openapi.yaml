@@ -266,7 +266,6 @@ components:
           type: string
           example: 'http://path/to/image.png'
           minLength: 3
-          readOnly: true
 
 
     Contact:
