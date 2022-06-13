@@ -10,11 +10,12 @@ paths:
   /image:
     get:
       security:
-        - basic: [ ]
+        - basic: []
       tags:
         - image
       summary: Returns a URL to upload image to
-      description: Pass the "image" query param with the name of the image you will upload.
+      description:
+        Pass the "image" query param with the name of the image you will upload.
         It will return two URLs. One is used to upload the image using PUT request,
         and the second one is to use to access the image from the browser.
       parameters:
@@ -25,7 +26,7 @@ paths:
             type: string
             example: Hello%20World.png
       responses:
-        '200':
+        "200":
           description: Signed URL created
           content:
             application/json:
@@ -39,9 +40,8 @@ paths:
                   url:
                     type: string
                     description: URL by which the uploaded image then can be accessed to download
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
   /profile:
     get:
@@ -49,16 +49,16 @@ paths:
         - profile
       summary: Returns profile info
       responses:
-        '200':
+        "200":
           description: ""
           content:
             application/json:
               schema:
-                $ref: '/validation-schemas/save-profile.validation.json'
+                $ref: "./validation-schemas/save-profile.validation.json"
 
     post:
       security:
-        - basic: [ ]
+        - basic: []
       tags:
         - profile
       summary: Saves profile info
@@ -67,17 +67,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '/validation-schemas/save-profile.validation.json'
+              $ref: "./validation-schemas/save-profile.validation.json"
       responses:
-        '201':
+        "201":
           description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ItemCreated'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-
+                $ref: "#/components/schemas/ItemCreated"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
   /skills:
     get:
@@ -85,15 +84,15 @@ paths:
         - get-skills
       summary: Returns get-skills
       responses:
-        '200':
+        "200":
           description: ""
           content:
             application/json:
               schema:
-                $ref: '/validation-schemas/save-skills.validation.json'
+                $ref: "./validation-schemas/save-skills.validation.json"
     post:
       security:
-        - basic: [ ]
+        - basic: []
       tags:
         - get-skills
       summary: Saves get-skills
@@ -102,17 +101,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '/validation-schemas/save-skills.validation.json'
+              $ref: "./validation-schemas/save-skills.validation.json"
       responses:
-        '201':
+        "201":
           description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ItemCreated'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-
+                $ref: "#/components/schemas/ItemCreated"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
   /languages:
     get:
@@ -120,7 +118,7 @@ paths:
         - languages
       summary: Returns languages
       responses:
-        '200':
+        "200":
           description: ""
           content:
             application/json:
@@ -128,11 +126,11 @@ paths:
                 type: array
                 items:
                   type: string
-                  example: 'English B2+'
+                  example: "English B2+"
                   minLength: 2
     post:
       security:
-        - basic: [ ]
+        - basic: []
       tags:
         - languages
       summary: Saves languages
@@ -144,18 +142,17 @@ paths:
               type: array
               items:
                 type: string
-                example: 'English B2+'
+                example: "English B2+"
                 minLength: 2
       responses:
-        '201':
+        "201":
           description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ItemCreated'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-
+                $ref: "#/components/schemas/ItemCreated"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
   /educations:
     get:
@@ -163,7 +160,7 @@ paths:
         - educations
       summary: Returns education
       responses:
-        '200':
+        "200":
           description: ""
           content:
             application/json:
@@ -171,11 +168,11 @@ paths:
                 type: array
                 items:
                   type: string
-                  example: 'Master degree'
+                  example: "Master degree"
                   minLength: 2
     post:
       security:
-        - basic: [ ]
+        - basic: []
       tags:
         - educations
       summary: Saves education
@@ -187,17 +184,17 @@ paths:
               type: array
               items:
                 type: string
-                example: 'Master degree'
+                example: "Master degree"
                 minLength: 2
       responses:
-        '201':
+        "201":
           description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ItemCreated'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
+                $ref: "#/components/schemas/ItemCreated"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
   /projects:
     get:
@@ -205,15 +202,15 @@ paths:
         - projects
       summary: Returns projects
       responses:
-        '200':
+        "200":
           description: ""
           content:
             application/json:
               schema:
-                $ref: '/validation-schemas/save-projects.validation.json'
+                $ref: "./validation-schemas/save-projects.validation.json"
     post:
       security:
-        - basic: [ ]
+        - basic: []
       tags:
         - projects
       summary: Saves projects
@@ -222,20 +219,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '/validation-schemas/save-projects.validation.json'
+              $ref: "./validation-schemas/save-projects.validation.json"
       responses:
-        '201':
+        "201":
           description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ItemCreated'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
+                $ref: "#/components/schemas/ItemCreated"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
 components:
   schemas:
-
     ItemCreated:
       type: object
       properties:
@@ -258,7 +254,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/AuthError'
+            $ref: "#/components/schemas/AuthError"
 
   securitySchemes:
     basic:
