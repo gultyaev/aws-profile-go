@@ -2,11 +2,8 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "SaveProfileRequestModel",
   "type": "object",
-  "required": [
-    "contacts",
-    "location",
-    "name"
-  ],
+  "required": ["contacts", "location", "name"],
+  "additionalProperties": false,
   "properties": {
     "name": {
       "type": "string",
@@ -20,10 +17,8 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "type",
-          "value"
-        ],
+        "additionalProperties": false,
+        "required": ["type", "value"],
         "properties": {
           "type": {
             "type": "string",

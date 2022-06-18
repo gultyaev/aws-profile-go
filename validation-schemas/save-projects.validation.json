@@ -5,6 +5,7 @@
   "items": {
     "type": "object",
     "required": ["title"],
+    "additionalProperties": false,
     "properties": {
       "title": {
         "type": "string",
@@ -29,6 +30,7 @@
         "type": "array",
         "items": {
           "type": "object",
+          "additionalProperties": false,
           "properties": {
             "url": {
               "type": "string",
