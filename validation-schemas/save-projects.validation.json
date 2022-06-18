@@ -4,9 +4,7 @@
   "type": "array",
   "items": {
     "type": "object",
-    "required": [
-      "title"
-    ],
+    "required": ["title"],
     "properties": {
       "title": {
         "type": "string",
@@ -16,9 +14,16 @@
         "type": "string",
         "minLength": 2
       },
-      "imageUrl": {
+      "descriptionShort": {
         "type": "string",
         "minLength": 2
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 2
+        }
       },
       "links": {
         "type": "array",
